@@ -17,23 +17,28 @@ const CardScreen: React.FC<iData> = ({ title, data }) => {
                     data?.map((props: any) => (
                         <Card key={props.id}
                             bg={
-                                props.priority === "Urgent" ? "red" :
-                                    props.priority === "High" ? "pink" :
-                                        props.priority === "Low" ? "lightblue" : "yellow"
+                                props.priority === "Urgent".toLowerCase() ? "red" :
+                                    props.priority === "High".toLowerCase() ? "pink" :
+                                        props.priority === "Low".toLowerCase() ? "lightblue" : "yellow"
                             }
                         >
                             <Task bg={props.completed ? "w" : ""}
                             >{props?.task}</Task>
 
+                            <Div>
                             <Move
                                 onClick={() => {
                                     // updateTask(props.id)
                                     createDoneTask(props)
-                                    deleteTask(props.id)
+                                    deleteTask(props._id)
 
                                     window.location.reload()
                                 }}
                             >Move to Progress</Move>
+
+                            
+
+                            </Div>
                         </Card>
                     ))
                 }
@@ -44,6 +49,10 @@ const CardScreen: React.FC<iData> = ({ title, data }) => {
 
 export default CardScreen
 
+const Div = styled.div`
+display: flex;
+align-items:center;
+`
 const Move = styled.div`
 color: white;
 background-color: black;
